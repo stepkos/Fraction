@@ -1,23 +1,20 @@
 import unittest
-from functions import *
-from fraction import *
-
-
-class FunctionsTests(unittest.TestCase):
-    def test_nwd1(self):
-        self.assertEqual(NWD(12, 18), 6)
-
-    def test_nwd2(self):
-        self.assertEqual(NWD(0, 321), 321)
-
-    def test_nww1(self):
-        self.assertEqual(NWW(3, 6), 6)
-
-    def test_nww2(self):
-        self.assertEqual(NWW(12, 18), 36)
+from fraction import Fraction
 
 
 class FractionTests(unittest.TestCase):
+    def test_gcd1(self):
+        self.assertEqual(Fraction.gcd(12, 18), 6)
+
+    def test_gcd2(self):
+        self.assertEqual(Fraction.gcd(0, 321), 321)
+
+    def test_lcm1(self):
+        self.assertEqual(Fraction.lcm(3, 6), 6)
+
+    def test_lcm2(self):
+        self.assertEqual(Fraction.lcm(12, 18), 36)
+
     def test_init1(self):
         f1 = Fraction()
         self.assertEqual(str(f1), '1/1')
