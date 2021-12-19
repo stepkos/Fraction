@@ -1,3 +1,15 @@
+def argumentToFraction(func):
+    def wrapper(self, other):
+        if type(other) == type(self):
+            pass
+        elif type(other) == int:
+            other = Fraction.fromInt(other)
+        else:
+            raise TypeError
+        return func(self, other)
+    return wrapper
+
+
 class Fraction:
     gcd = staticmethod(lambda a, b: Fraction.gcd(b, a % b) if b else a)
     lcm = staticmethod(lambda a, b: a * b / Fraction.gcd(a, b))
@@ -12,6 +24,10 @@ class Fraction:
     @classmethod
     def hotReturn(cls, num, dec):
         return cls(num, dec)
+
+    @classmethod
+    def fromInt(cls, val):
+        return cls(val)
 
     @property
     def num(self) -> int:
@@ -49,31 +65,19 @@ class Fraction:
         pass
 
     # x * y -> x.__mul__(y)
+    @argumentToFraction
     def __mul__(self, other):
         num, den = self.getValues()
-
-        if type(other) == type(self):
-            num *= other.num
-            den *= other.den
-        elif type(other) == int:
-            num *= other
-        else:
-            raise TypeError
-
+        num *= other.num
+        den *= other.den
         return Fraction.hotReturn(num, den)
 
     # x / y -> x.__truediv__(y)
+    @argumentToFraction
     def __truediv__(self, other):
         num, den = self.getValues()
-
-        if type(other) == type(self):
-            den *= other.num
-            num *= other.den
-        elif type(other) == int:
-            den *= other
-        else:
-            raise TypeError
-
+        den *= other.num
+        num *= other.den
         return Fraction.hotReturn(num, den)
 
     # x ** y -> x.__pow__(y)
