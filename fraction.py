@@ -37,8 +37,11 @@ class Fraction:
             self.__num //= div
             self.__den //= div
 
+    def getValues(self):
+        return self.num, self.den
+
     def __mul__(self, other):
-        num, den = self.num, self.den
+        num, den = self.getValues()
 
         if type(other) == type(self):
             num *= other.num
@@ -51,7 +54,7 @@ class Fraction:
         return Fraction.hotReturn(num, den)
 
     def __truediv__(self, other):
-        num, den = self.num, self.den
+        num, den = self.getValues()
 
         if type(other) == type(self):
             den *= other.num
@@ -60,6 +63,16 @@ class Fraction:
             den *= other
         else:
             raise TypeError
+
+        return Fraction.hotReturn(num, den)
+
+    def __pow__(self, power: int, modulo=None):
+        # modulo to implement in future
+        num, den = self.getValues()
+        originalNum, originalDen = num, den
+        for _ in range(power - 1):
+            num *= originalNum
+            den *= originalDen
 
         return Fraction.hotReturn(num, den)
 

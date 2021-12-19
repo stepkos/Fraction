@@ -49,8 +49,16 @@ class FractionTests(unittest.TestCase):
     def test_div2(self):
         f1 = Fraction(1, 2)
         f2 = Fraction(1, 2)
-        f3 = f1 / f2
-        self.assertEqual(str(f3), '1')
+        self.assertEqual(str(f1 / f2), '1')
+
+    def test_pow1(self):
+        f1 = Fraction(1, 2)
+        f2 = Fraction(1, 2)
+        self.assertEqual(str(f1 ** 2), '1/4')
+
+    def test_pow2(self):
+        f1 = Fraction(2, 3)
+        self.assertEqual(str(pow(f1, 3)), '8/27')
 
 
 if __name__ == '__main__':
