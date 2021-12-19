@@ -1,5 +1,6 @@
 from fraction import *
 
-
-
-print(Fraction.gcd(12, 18))
+f1 = Fraction(5, 10)
+print(f1)
+f1.shorten()
+print(f1)
