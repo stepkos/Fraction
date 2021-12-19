@@ -38,14 +38,26 @@ class Fraction:
             self.__den //= div
 
     def __mul__(self, other):
-        num = self.num
-        den = self.den
+        num, den = self.num, self.den
 
         if type(other) == type(self):
             num *= other.num
             den *= other.den
         elif type(other) == int:
             num *= other
+        else:
+            raise TypeError
+
+        return Fraction.hotReturn(num, den)
+
+    def __truediv__(self, other):
+        num, den = self.num, self.den
+
+        if type(other) == type(self):
+            den *= other.num
+            num *= other.den
+        elif type(other) == int:
+            den *= other
         else:
             raise TypeError
 
