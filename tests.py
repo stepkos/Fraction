@@ -33,6 +33,15 @@ class FractionTests(unittest.TestCase):
     def test_den_setter_0_dev(self):
         self.assertRaises(ZeroDivisionError, Fraction, 5, 0)
 
+    def test_mul1(self):
+        f1 = Fraction(1, 3)
+        f2 = Fraction(3, 5)
+        self.assertEqual(str(f1 * f2), '1/5')
+
+    def test_mul2(self):
+        f1 = Fraction(4, 2)
+        self.assertEqual(str(f1 * 2), '4')
+
 
 if __name__ == '__main__':
     unittest.main()

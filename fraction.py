@@ -7,6 +7,11 @@ class Fraction:
         self.den = den  # denominator
         self.gcd = lambda: Fraction.gcd(self.num, self.den)
         self.lcm = lambda: Fraction.lcm(self.num, self.den)
+        self.shorten()
+
+    @classmethod
+    def hotReturn(cls, num, dec):
+        return cls(num, dec)
 
     @property
     def num(self) -> int:
@@ -32,5 +37,21 @@ class Fraction:
             self.__num //= div
             self.__den //= div
 
+    def __mul__(self, other):
+        num = self.num
+        den = self.den
+
+        if type(other) == type(self):
+            num *= other.num
+            den *= other.den
+        elif type(other) == int:
+            num *= other
+        else:
+            raise TypeError
+
+        return Fraction.hotReturn(num, den)
+
     def __str__(self):
+        if self.den == 1:
+            return str(self.num)
         return str(self.num) + '/' + str(self.den)
