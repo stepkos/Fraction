@@ -40,6 +40,15 @@ class Fraction:
     def getValues(self):
         return self.num, self.den
 
+    # x + y -> x.__add__(y)
+    def __add__(self, other):
+        pass
+
+    # x - y -> x.__sub__(y)
+    def __sub__(self, other):
+        pass
+
+    # x * y -> x.__mul__(y)
     def __mul__(self, other):
         num, den = self.getValues()
 
@@ -53,6 +62,7 @@ class Fraction:
 
         return Fraction.hotReturn(num, den)
 
+    # x / y -> x.__truediv__(y)
     def __truediv__(self, other):
         num, den = self.getValues()
 
@@ -66,6 +76,7 @@ class Fraction:
 
         return Fraction.hotReturn(num, den)
 
+    # x ** y -> x.__pow__(y)
     def __pow__(self, power: int, modulo=None):
         # modulo to implement in future
         num, den = self.getValues()
@@ -75,6 +86,30 @@ class Fraction:
             den *= originalDen
 
         return Fraction.hotReturn(num, den)
+
+    # x < y -> x.__lt__(y)
+    def __lt__(self, other):
+        pass
+
+    # x <= y -> x.__le__(y)
+    def __le__(self, other):
+        pass
+
+    # x == y -> x.__eq__(y)
+    def __eq__(self, other):
+        pass
+
+    # x != y -> x.__ne__(y)
+    def __ne__(self, other):
+        pass
+
+    # x > y -> x.__gt__(y)
+    def __gt__(self, other):
+        pass
+
+    # x >= y -> x.__ge__(y)
+    def __ge__(self, other):
+        pass
 
     def __str__(self):
         if self.den == 1:
