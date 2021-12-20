@@ -116,6 +116,19 @@ class Fraction:
     def __ge__(self, other):
         pass
 
+    def __call__(self, exp):
+        if type(exp) == str:
+            if len(exp) == 1:
+                self.num = int(exp)
+                self.den = 1
+            else:
+                self.num, self.den = map(int, exp.split('/'))
+        elif type(exp) == int:
+            self.num = exp
+            self.den = 1
+        else:
+            raise TypeError
+
     def __str__(self):
         if self.den == 1:
             return str(self.num)
