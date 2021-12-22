@@ -54,17 +54,23 @@ class Fraction:
             else:
                 raise TypeError
             return func(self, other)
-
         return wrapper
+
+    @staticmethod
+    def toCommonDenominator(self_copy, other):
+        num, den = self_copy.getValues()
+        lcm = Fraction.lcm(den, other.den)
+        self_copy.num *= (lcm // den)
+        self_copy.den = lcm
+        other.num *= (lcm // other.den)
+        other.den = lcm
+        return self_copy, other
 
     # x + y -> x.__add__(y)
     @__argumentToFraction.__get__('')
     def __add__(self, other):
-        num, den = self.getValues()
-        lcm = Fraction.lcm(den, other.den)
-        num *= (lcm // den)
-        other.num *= (lcm // other.den)
-        return Fraction().hotReturn(num + other.num, lcm)
+        self_copy, other = Fraction.toCommonDenominator(self, other)
+        return Fraction().hotReturn(self_copy.num + other.num, self_copy.den)
 
 
     # x - y -> x.__sub__(y)
