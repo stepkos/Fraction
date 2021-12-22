@@ -70,6 +70,16 @@ class FractionTests(unittest.TestCase):
         f1('4/3')
         self.assertEqual(str(f1), '4/3')
 
+    def test_add1(self):
+        f1 = Fraction(1, 2)
+        f2 = Fraction(1, 2)
+        self.assertEqual(str(f1 + f2), '1')
+
+    def test_add2(self):
+        f1 = Fraction(1, 2)
+        f2 = Fraction(1, 3)
+        self.assertEqual(str(f1 + f2), '5/6')
+
 
 if __name__ == '__main__':
     unittest.main()

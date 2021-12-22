@@ -1,6 +1,6 @@
 class Fraction:
-    gcd = staticmethod(lambda a, b: Fraction.gcd(b, a % b) if b else a)
-    lcm = staticmethod(lambda a, b: a * b / Fraction.gcd(a, b))
+    gcd = staticmethod(lambda a, b: int(Fraction.gcd(b, a % b) if b else a))
+    lcm = staticmethod(lambda a, b: int(a * b / Fraction.gcd(a, b)))
 
     def __init__(self, num=1, den=1):
         self.num = num  # numerator
@@ -58,8 +58,14 @@ class Fraction:
         return wrapper
 
     # x + y -> x.__add__(y)
+    @__argumentToFraction.__get__('')
     def __add__(self, other):
-        pass
+        num, den = self.getValues()
+        lcm = Fraction.lcm(den, other.den)
+        num *= (lcm // den)
+        other.num *= (lcm // other.den)
+        return Fraction().hotReturn(num + other.num, lcm)
+
 
     # x - y -> x.__sub__(y)
     def __sub__(self, other):
