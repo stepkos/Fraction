@@ -10,11 +10,11 @@ class Fraction:
         self.shorten()
 
     @classmethod
-    def hotReturn(cls, num, dec):
+    def hot_return(cls, num, dec):
         return cls(num, dec)
 
     @classmethod
-    def fromInt(cls, val):
+    def from_int(cls, val):
         return cls(val)
 
     @property
@@ -41,24 +41,25 @@ class Fraction:
             self.__num //= div
             self.__den //= div
 
-    def getValues(self):
+    def get_values(self):
         return self.num, self.den
 
     @staticmethod
-    def __argumentToFraction(func):
+    def __argument_to_fraction(func):
         def wrapper(self, other):
             if type(other) == type(self):
                 pass
             elif type(other) == int:
-                other = Fraction.fromInt(other)
+                other = Fraction.from_int(other)
             else:
                 raise TypeError
             return func(self, other)
+
         return wrapper
 
     @staticmethod
-    def toCommonDenominator(self_copy, other):
-        num, den = self_copy.getValues()
+    def to_common_denominator(self_copy, other):
+        num, den = self_copy.get_values()
         lcm = Fraction.lcm(den, other.den)
         self_copy.num *= (lcm // den)
         self_copy.den = lcm
@@ -67,42 +68,41 @@ class Fraction:
         return self_copy, other
 
     # x + y -> x.__add__(y)
-    @__argumentToFraction.__get__('')
+    @__argument_to_fraction.__get__('')
     def __add__(self, other):
-        self_copy, other = Fraction.toCommonDenominator(self, other)
-        return Fraction().hotReturn(self_copy.num + other.num, self_copy.den)
-
+        self_copy, other = Fraction.to_common_denominator(self, other)
+        return Fraction().hot_return(self_copy.num + other.num, self_copy.den)
 
     # x - y -> x.__sub__(y)
     def __sub__(self, other):
         pass
 
     # x * y -> x.__mul__(y)
-    @__argumentToFraction.__get__('')
+    @__argument_to_fraction.__get__('')
     def __mul__(self, other):
-        num, den = self.getValues()
+        num, den = self.get_values()
         num *= other.num
         den *= other.den
-        return Fraction.hotReturn(num, den)
+        return Fraction.hot_return(num, den)
 
     # x / y -> x.__truediv__(y)
-    @__argumentToFraction.__get__('')
+    @__argument_to_fraction.__get__('')
     def __truediv__(self, other):
-        num, den = self.getValues()
+        num, den = self.get_values()
         den *= other.num
         num *= other.den
-        return Fraction.hotReturn(num, den)
+        return Fraction.hot_return(num, den)
 
     # x ** y -> x.__pow__(y)
     def __pow__(self, power: int, modulo=None):
         # modulo to implement in future
-        num, den = self.getValues()
-        originalNum, originalDen = num, den
+        num, den = self.get_values()
+        original_num, original_den = num, den
         for _ in range(power - 1):
-            num *= originalNum
-            den *= originalDen
+            num *= original_num
+            den *= original_den
 
-        return Fraction.hotReturn(num, den)
+        return Fraction.hot_return(num, den)
 
     # x < y -> x.__lt__(y)
     def __lt__(self, other):
